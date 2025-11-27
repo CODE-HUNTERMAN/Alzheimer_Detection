@@ -14,7 +14,6 @@ Then, according to results, we decided to improve our CNN model and change our d
 
 We improved our CNN model and we named it **"Custom CNN"**. 
 
-We used a clarified dataset collected from [ADNI dataset](https://adni.loni.usc.edu/), hospitals, several websites and public repositories. 
 
 ### Results
 
@@ -47,14 +46,10 @@ The classifier made a total of 1600 predictions.
 ----
 
 ### Dataset
-* [Alzheimer MRI Preprocessed Dataset](https://www.kaggle.com/datasets/sachinkumar413/alzheimer-mri-dataset)
+* [Alzheimer MRI Preprocessed Dataset](https://www.kaggle.com/datasets/uraninjo/augmented-alzheimer-mri-dataset/data/discussion)
     * The data is collected from several websites, hospitals, and public repositories. 
     * The dataset is consists of Preprocessed MRI (Magnetic Resonance Imaging) Images.
     * All the images are resized into 128 x 128 pixels.
-
-* [ADNI (The Alzheimer’s Disease Neuroimaging Initiative)](https://adni.loni.usc.edu/)
-    * The Alzheimer’s Disease Neuroimaging Initiative (ADNI) is a longitudinal multicenter study designed to develop clinical, imaging, genetic, and biochemical biomarkers for the early detection and tracking of Alzheimer’s disease (AD). 
-    * ADNI researchers collect, validate and utilize data, including MRI and PET images, genetics, cognitive tests, CSF and blood biomarkers as predictors of the disease. 
 
 ## Repository Structure
 ```
