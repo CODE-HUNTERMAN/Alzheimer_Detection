@@ -47,7 +47,5 @@ Then I have saved the model in h5 file format and the loaded it in a streamlit a
 The form is completely validated. 
 ![output1](https://user-images.githubusercontent.com/71088263/233706839-fc05612d-2924-49c4-b5aa-024ce64fbde0.png)
 
-![image](https://user-images.githubusercontent.com/71088263/233711336-90953eef-b33d-43b8-a9b5-4057f1b4eae8.png)
-
 
 After submitting your details the web app generates a pdf report using fpdf and your data gets stored in a mysql database
