@@ -54,24 +54,20 @@ The classifier made a total of 1600 predictions.
 ## Repository Structure
 ```
 .
-├── Data
+├── images
 ├── Models
-│   ├── alzheimer_cnn_model.pth       # CNN model for Alzheimer's detection
-│   └── alzheimer_efficientnet_model.pth  # EfficientNet model for Alzheimer's detection
-├── Notebooks
-│   ├── alzheimer-detection.ipynb     # Main Jupyter notebook for the project
-│   └── data_explore.ipynb            # Notebook for data exploration and visualization
-├── README.md   
+│   ├── CNN
+│   └── Custom CNN
+│   └── DenseNet121
+│   └── InceptionV3
+│   └── RestNet50
+│   └── VGG16
+├── alzheimer-detection.ipynb
 ├── Requirements.txt
-├── Src
-│   ├── alzheimer_efficientnet_model.pth  # Model file (duplicate, should review)
-│   └── app.py                         # Streamlit application for deploying the model
-└── Visualizations
-    └── class_distribution.png        # Visualization of the dataset class distribution
+├── app2.py                  
+├── README.md   
+
 ```
-
-
-I have built a cnn model to detect the presence of dementia in a patient's MRI Scans. The accuracy the model achieved was 93.75% and data loss was seen to be 22.17%
 
 ![acc_ss](https://user-images.githubusercontent.com/71088263/233706569-3809db9a-6d9a-4697-86b2-75b7068e7825.png)
 
