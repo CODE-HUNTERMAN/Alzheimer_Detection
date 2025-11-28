@@ -1,75 +1,38 @@
 import streamlit as st
-import tensorflow as tf
 from PIL import Image
-import numpy as np
-from streamlit_option_menu import option_menu
-import re
-import base64
-from fpdf import FPDF
+import os
+import torch
+from torchvision import datasets, transforms, models
+from torch.utils.data import DataLoader, random_split
+from torch import nn, optim
+from efficientnet_pytorch import EfficientNet
 
-import mysql.connector
+st.title('Alzheimer\'s Disease Detection')
+st.write('This app predicts Alzheimer\'s Disease using MRI images.')
 
-# Connect to the MySQL database
+# Load the model which is in Src/alzheimer_efficientnet_model.pth
+MODEL_PATH = os.path.join('Src', 'alzheimer_efficientnet_model.pth')
+
 try:
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="",
-        password="",
-        database="Alzheimers"
-    )
-    print("Database connection successful")
-except mysql.connector.Error as err:
-    print("Error connecting to database:", err)
-    exit(1)
-# Get a cursor object to execute SQL queries
-mycursor = mydb.cursor()
+    # Load model
+    model = EfficientNet.from_pretrained('efficientnet-b0', num_classes=4)
+    model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
+    model.eval()
+    model_loaded = True
+except FileNotFoundError:
+    st.error(f"Model file not found at {MODEL_PATH}. Please check the path.")
+    model_loaded = False
 
-
-
-
-st.markdown("""
-<style>
-    button.step-up {display: none;}
-    button.step-down {display: none;}
-    div[data-baseweb] {border-radius: 4px;}
-</style>""",
-unsafe_allow_html=True)
-
-def get_base64(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-def set_background(png_file):
-    bin_str = get_base64(png_file)
-    page_bg_img = '''
-    <style>
-    .stApp {
-    background-image: url("data:image/png;base64,%s");
-    background-position: center;
-    background-size: cover;
-    }
-    </style>
-    ''' % bin_str
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-set_background('./images/bg3.png')
-
-# Load the saved model
-model = tf.keras.models.load_model('model.h5')
-
-# Define the class labels
-class_labels = ['Mild Demented', 'Moderate Demented',
-                'Non Demented', 'Very Mild Demented']
-
-# Define the function to preprocess the image
-
-
-def preprocess_image(image):
-    image = image.convert('RGB')
-    image = image.resize((176, 176))
-    image = np.array(image)
-    image = image / 255.0
-    image = np.expand_dims(image, axis=0)
+# Preprocess image
+def preprocess(image):
+    transform = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+    image = transform(image)
+    image = image.unsqueeze(0)
     return image
 
 # Define the Streamlit app
